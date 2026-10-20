@@ -1,6 +1,7 @@
 // Ortak JSON dosya okuma/yazma yardımcısı (atomik yazım: geçici dosyaya yazıp yeniden adlandırır)
 const fs = require('fs');
 const path = require('path');
+const { randomUUID } = require('crypto');
 
 // Testler gerçek prod verisini (data/*.json) hiç görmesin/bozmasın diye BOT_DATA_DIR ortam
 // değişkeniyle geçici bir klasöre yönlendirilebilir; ayarlanmazsa davranış eskisiyle birebir aynı.
@@ -25,7 +26,10 @@ function readJSON(fileName, fallback = {}) {
         const raw = fs.readFileSync(filePath, 'utf-8');
         return JSON.parse(raw || 'null') ?? fallback;
     } catch (err) {
-        console.error(`[fileStore] ${fileName} okunurken hata:`, err.message);
+        console.error(`[fileStore] ${fileName} could not be read:`, err.message);
+        // Preserve the original before fallback data can be written over it.
+        // Copy failures propagate so a disk/permission error cannot silently lose data.
+        fs.copyFileSync(filePath, `${filePath}.corrupt-${randomUUID()}`, fs.constants.COPYFILE_EXCL);
         return fallback;
     }
 }

@@ -1,7 +1,7 @@
 {
   "name": "discord-bot",
   "version": "1.0.0",
-  "description": "",
+  "description": "A modular Discord community bot with moderation, music, and optional AI providers.",
   "main": "index.js",
   "scripts": {
     "setup": "node setup.js",
@@ -11,7 +11,8 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
+  "engines": { "node": ">=22.12.0" },
   "type": "commonjs",
   "dependencies": {
     "@discordjs/voice": "^0.19.2",

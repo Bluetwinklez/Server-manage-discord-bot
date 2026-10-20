@@ -33,3 +33,15 @@ test('bozuk JSON içeriğinde okuma çökmez, varsayılana düşer', () => {
     const result = readJSON('bozuk.json', { fallback: true });
     assert.deepEqual(result, { fallback: true });
 });
+
+
+test('corrupt source survives a subsequent successful write', () => {
+    const original = '{ damaged economy data';
+    fs.writeFileSync(path.join(tmpDir, 'recovery.json'), original);
+    assert.deepEqual(readJSON('recovery.json', { balance: 0 }), { balance: 0 });
+    assert.equal(writeJSON('recovery.json', { balance: 10 }), true);
+    const copies = fs.readdirSync(tmpDir).filter(name => name.startsWith('recovery.json.corrupt-'));
+    assert.equal(copies.length, 1);
+    assert.equal(fs.readFileSync(path.join(tmpDir, copies[0]), 'utf8'), original);
+    assert.deepEqual(readJSON('recovery.json'), { balance: 10 });
+});
