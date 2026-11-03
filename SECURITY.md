@@ -25,3 +25,5 @@ Bu depo kişisel/topluluk kullanımı için geliştirilen bir Discord botudur, r
 
 - `data/` klasöründeki kendi sunucu verinizin yönetimi (bu sizin sorumluluğunuz, `.gitignore` ile zaten korunuyor)
 - Üçüncü taraf servislerin (Discord, AI sağlayıcıları, yt-dlp, Fish Audio vb.) kendi güvenlik açıkları
+
+See [the repository security audit](SECURITY_AUDIT.md) for current findings and verification limits.

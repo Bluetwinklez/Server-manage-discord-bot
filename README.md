@@ -57,3 +57,5 @@ CI checks JavaScript syntax and runs the automated suite. Tests do not prove liv
 - AI unavailable: check the configured provider credentials and limits without printing secrets into logs.
 
 See [the detailed command and architecture guide (Turkish)](README.tr.md), [contributing](CONTRIBUTING.md), [security](SECURITY.md), and the [MIT license](LICENSE).
+
+[Security policy](SECURITY.md) · [Repository security audit](SECURITY_AUDIT.md)
