@@ -288,7 +288,7 @@ AI kanalında yazarak veya botu etiketleyerek her şeyi doğal dille (Türkçe) 
 
 ### AI Yönetici Rolü (Yetki Devri)
 
-`/ai-panel` üzerinden bir **AI Yönetici Rolü** atanabilir (veya otomatik oluşturulabilir). Bu role sahip kişiler, kendi Discord yetkisi olmasa bile AI'ye ban/kick/kanal-rol yönetimi gibi **yönetim eylemleri** yaptırabilir. Bu role sahip olmayanlarla AI sadece sohbet eder ve normal bir üyenin yapabileceği şeyleri (müzik, zar, vb.) yaptırabilir — yönetim komutu vermeye çalışırsa reddedilir. Yıkıcı eylemler (tüm kanalları/rolleri silme vb.) ayrıca **çift onay** ister: aynı isteği 90 saniye içinde bir kez daha aynen yazman gerekir.
+`/ai-panel` üzerinden bir **AI Yönetici Rolü** atanabilir (veya otomatik oluşturulabilir). Bu role sahip kişiler, kendi Discord yetkisi olmasa bile AI'ye ban/kick/kanal-rol yönetimi gibi **yönetim eylemleri** yaptırabilir. Bu role sahip olmayanlarla AI sadece sohbet eder ve normal bir üyenin yapabileceği şeyleri (müzik, zar, vb.) yaptırabilir — yönetim komutu vermeye çalışırsa reddedilir. Yıkıcı eylemler (tüm kanalları/rolleri silme, toplu kanal/rol silme) bu role devredilmez: isteği yazan kişinin ilgili gerçek Discord yetkisine (`Yönetici`, `Kanalları Yönet` veya `Rolleri Yönet`) bizzat sahip olması gerekir. Ayrıca **çift onay** ister: aynı isteği 90 saniye içinde bir kez daha aynen yazman gerekir.
 
 ### Sağlayıcı Zinciri
 

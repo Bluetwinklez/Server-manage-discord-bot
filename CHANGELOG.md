@@ -9,7 +9,8 @@ Format [Keep a Changelog](https://keepachangelog.com/tr/1.1.0/)'a dayanır.
 
 ## [Yayınlanmamış]
 
-Henüz `main`'e eklenmiş ama etiketlenmemiş bir değişiklik yok.
+### Güvenlik
+- Geri alınamaz toplu kanal/rol silme eylemleri artık AI Yönetici rolüyle devredilemez; isteği yazan üyenin gerçek Discord yetkisi aranır.
 
 ## [1.0.0] - 2026-09-16
 
