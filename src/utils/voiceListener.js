@@ -497,7 +497,7 @@ setInterval(() => {
             }
         }
     }
-}, 60 * 1000);
+}, 60 * 1000).unref();
 
 module.exports = {
     startListening,
