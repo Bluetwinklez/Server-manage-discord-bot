@@ -51,6 +51,16 @@ const DESTRUCTIVE_ACTIONS = new Set([
     'delete_all_channels', 'clear_channels', 'bulk_delete_channels',
     'bulk_delete_roles', 'delete_roles_matching', 'delete_roles', 'clear_roles', 'delete_all_roles'
 ]);
+const DESTRUCTIVE_REQUIRED_PERMISSION = {
+    delete_all_channels: PermissionFlagsBits.Administrator,
+    clear_channels: PermissionFlagsBits.Administrator,
+    bulk_delete_channels: PermissionFlagsBits.ManageChannels,
+    bulk_delete_roles: PermissionFlagsBits.ManageRoles,
+    delete_roles_matching: PermissionFlagsBits.ManageRoles,
+    delete_roles: PermissionFlagsBits.ManageRoles,
+    clear_roles: PermissionFlagsBits.ManageRoles,
+    delete_all_roles: PermissionFlagsBits.ManageRoles
+};
 const pendingDestructiveConfirmations = new Map(); // "guildId:memberId:action" -> timestamp
 const CONFIRMATION_WINDOW_MS = 90 * 1000;
 
@@ -98,6 +108,13 @@ async function executeAction(actionName, params = {}, context) {
     const hasPerm = (perm) => member.permissions.has(perm) || isAiManager;
 
     if (DESTRUCTIVE_ACTIONS.has(actionName)) {
+        // Geri alınamaz toplu silmelerde AI Yönetici rolü tek başına yetmez: isteği yazan kişinin
+        // o eylemin gerçek Discord yetkisine bizzat sahip olması gerekir. Böylece yanlış kişiye
+        // verilen bir rol ya da modeli kandıran bir mesaj sunucunun yapısını silemez.
+        const requiredPerm = DESTRUCTIVE_REQUIRED_PERMISSION[actionName];
+        if (!member.permissions.has(requiredPerm)) {
+            return '❌ Bu işlem geri alınamaz. AI Yönetici rolü yeterli değil; gerekli Discord yetkisine bizzat sahip olmalısınız.';
+        }
         const confirmKey = `${guild.id}:${member.id}:${actionName}`;
         const pendingAt = pendingDestructiveConfirmations.get(confirmKey);
         if (pendingAt && Date.now() - pendingAt < CONFIRMATION_WINDOW_MS) {
